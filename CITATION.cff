@@ -22,7 +22,7 @@ preferred-citation:
   - family-names: "Linka"
     given-names: "Christian J."
   doi: "10.1016/j.jcp.2023.112704"
-  url : "https://www.sciencedirect.com/science/article/pii/S0021999123007994"
+  url: "https://www.sciencedirect.com/science/article/pii/S0021999123007994"
   journal: "Journal of Computational Physics"
   issue: 112704
   title: "Viscoelastic constitutive artificial neural networks (vCANNs) – A framework for data-driven anisotropic nonlinear finite viscoelasticity"
