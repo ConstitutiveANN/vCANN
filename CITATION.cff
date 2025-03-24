@@ -1,11 +1,28 @@
-@article{Abdolazizi2024,
-title = {Viscoelastic constitutive artificial neural networks (vCANNs) – A framework for data-driven anisotropic nonlinear finite viscoelasticity},
-journal = {Journal of Computational Physics},
-volume = {499},
-pages = {112704},
-year = {2024},
-issn = {0021-9991},
-doi = {https://doi.org/10.1016/j.jcp.2023.112704},
-url = {https://www.sciencedirect.com/science/article/pii/S0021999123007994},
-author = {Kian P. Abdolazizi and Kevin Linka and Christian J. Cyron},
-}
+cff-version: 1.2.0
+- family-names: "Abdolazizi"
+  given-names: "Kian P."
+  orcid: "https://orcid.org/0000-0002-1838-7739"
+- family-names: "Linka"
+  given-names: "Kevin"
+  orcid: "https://orcid.org/0000-0002-1239-4778"
+- family-names: "Linka"
+  given-names: "Christian J."
+  orcid: "https://orcid.org/0000-0001-8264-0885"
+title: "Viscoelastic constitutive artificial neural networks (vCANNs) – A framework for data-driven anisotropic nonlinear finite viscoelasticity"
+url: "https://github.com/ConstitutiveANN/vCANN"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Lisa"
+    given-names: "Mona"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: "Bot"
+    given-names: "Hew"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+  doi: "10.1016/j.jcp.2023.112704"
+  url : "https://www.sciencedirect.com/science/article/pii/S0021999123007994"
+  journal: "Journal of Computational Physics"
+  pages: 112704
+  title: "Viscoelastic constitutive artificial neural networks (vCANNs) – A framework for data-driven anisotropic nonlinear finite viscoelasticity"
+  volume: 499
+  year: 2024
