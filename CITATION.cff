@@ -12,6 +12,15 @@ authors:
   orcid: "https://orcid.org/0000-0001-8264-0885"
 title: "Viscoelastic constitutive artificial neural networks (vCANNs) - A framework for data-driven anisotropic nonlinear finite viscoelasticity"
 version: 1.0.0
-doi: 10.5281/zenodo.1234
-date-released: 2025-03-24
 url: "https://github.com/ConstitutiveANN/vCANN"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Abdolazizi"
+    given-names: "Kian P."
+    orcid: "https://orcid.org/0000-0002-1838-7739"
+  - family-names: "Linka"
+    given-names: "Kevin"
+    orcid: "https://orcid.org/0000-0002-1239-4778"
+  - family-names: "Linka"
+    given-names: "Christian J."
