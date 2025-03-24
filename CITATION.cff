@@ -13,16 +13,18 @@ url: "https://github.com/ConstitutiveANN/vCANN"
 preferred-citation:
   type: article
   authors:
-  - family-names: "Lisa"
-    given-names: "Mona"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-  - family-names: "Bot"
-    given-names: "Hew"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: "Abdolazizi"
+    given-names: "Kian P."
+    orcid: "https://orcid.org/0000-0002-1838-7739"
+  - family-names: "Linka"
+    given-names: "Kevin"
+    orcid: "https://orcid.org/0000-0002-1239-4778"
+  - family-names: "Linka"
+    given-names: "Christian J."
   doi: "10.1016/j.jcp.2023.112704"
   url : "https://www.sciencedirect.com/science/article/pii/S0021999123007994"
   journal: "Journal of Computational Physics"
-  pages: 112704
+  issue: 112704
   title: "Viscoelastic constitutive artificial neural networks (vCANNs) – A framework for data-driven anisotropic nonlinear finite viscoelasticity"
   volume: 499
   year: 2024
