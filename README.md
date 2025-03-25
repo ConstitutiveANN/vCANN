@@ -1,5 +1,5 @@
 # Viscoelastic Constitutive Artificial Neural Networks (vCANNs)
-This is the GitHub Repository for the paper "Viscoelastic Constitutive Artificial Neural Networks (vCANNs) – a framework for data-driven anisotropic nonlinear finite viscoelasticity", K.P. Abdolazizi, K. Linka, C.J. Cyron, Journal of Computational Physics: 499:112704, 2023.
+This is the GitHub Repository for the paper "Viscoelastic Constitutive Artificial Neural Networks (vCANNs) – a framework for data-driven anisotropic nonlinear finite viscoelasticity", K.P. Abdolazizi, K. Linka, C.J. Cyron, Journal of Computational Physics: 499:112704, 2024.
 
 Besides the source code, this repo contains a minimal working example that illustrates most of the vCANN features using the uniaxial loading-unloading data of VHB 4910 also used in the paper.
 
