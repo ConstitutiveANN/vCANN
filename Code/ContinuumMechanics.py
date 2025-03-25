@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 
@@ -28,7 +28,7 @@ tf_float = 'float64'
 class dirModel(tf.keras.models.Model):
     """
     Implements a model representing the in-plane symmetrically distributed preferred
-    fiber directions based on a trainable fiber angle 'theta' withouth relying on a feature vector
+    fiber directions based on a trainable fiber angle 'theta' without relying on a feature vector
     """
     
     def __init__(self, numTens, numDir, **kwargs):
@@ -38,17 +38,17 @@ class dirModel(tf.keras.models.Model):
         Parameters
         ----------
         numTens : int
-            the number of generalized strucutral tensors. Note that all generalized
-            strucutral tensors share the same preferred material directions. However,
-            their weighting of the corresponding strucutral tensors may differ
-            between the strucutral models.
+            the number of generalized structural tensors. Note that all generalized
+            structural tensors share the same preferred material directions. However,
+            the weighting of the corresponding structural tensors may differ
+            between the structural models.
         numDir : int
             the number of preferred material directions. Has to be an even number.
 
         Raises
         ------
         ValueError
-            Raises an error if numDir is odd, since it is assumed that two fiber
+            Raises an error if numDir is odd since it is assumed that two fiber
             families are always symmetrically distributed including the same angle 'theta'.
 
         Returns
@@ -178,7 +178,7 @@ class weightModel(tf.keras.models.Model):
 
 def ten2_H(L, w, nSteps, numDir, numTens): # Generalized structural tensors: H_r = \sum_i w_ri * L_i, (?,nSteps,numTens,3,3)
     """
-    Computes the generalized strucutral tensors from classical strucutral tensors and the
+    Computes the generalized structural tensors from classical structural tensors and the
     corresponding scalar weights
     
     Parameters
@@ -186,7 +186,7 @@ def ten2_H(L, w, nSteps, numDir, numTens): # Generalized structural tensors: H_r
     L : tf.Tensor
         Classical structural tensors.
     w : tf.Tensor
-        Scalar weights of the generalized strucutral tensors.
+        Scalar weights of the generalized structural tensors.
     nSteps : int
         Number of time steps.
     numDir : int
@@ -237,8 +237,8 @@ def ten2_H(L, w, nSteps, numDir, numTens): # Generalized structural tensors: H_r
 
 def invariants_I(C, H, numTens): # Generalized invariants I: I_r = trace(C*H_r) [?,nSteps,numTens]
     """
-    Computes the generalized invariant I corresponding to the individual strucutral tensors H.
-    Can be used for the incompressible as well as nearly incompressible case since the incompressiblity
+    Computes the generalized invariant I corresponding to the individual structural tensors H.
+    Can be used for the incompressible as well as nearly incompressible case since the incompressibility
     constraint det(C)=1 does not have to be considered.
     
     Parameters
@@ -246,14 +246,14 @@ def invariants_I(C, H, numTens): # Generalized invariants I: I_r = trace(C*H_r) 
     C : tf.Tensor
         Right Cauchy-Green deformation tensor.
     H : tf.Tensor
-        Scalar weights of the generalized strucutral tensors.
+        Scalar weights of the generalized structural tensors.
     numTens : int
         Number of generalized structural tensors to use (at least 1).
         
     Returns
     -------
     I : tf.Tensor
-        Generalized invariant I corresponding to the individual generalized structural tensors.
+        Generalized invariant I associated with the individual generalized structural tensors.
 
     """
     shaper = tf.constant([1,1,0,1,1]) + numTens*tf.constant([0,0,1,0,0])
@@ -269,15 +269,15 @@ def invariants_I(C, H, numTens): # Generalized invariants I: I_r = trace(C*H_r) 
 # use the incompressible invariants
 def invariants_J_incomp(C_bar, H, numTens): # Generalized polyconvex isochoric invariants J: J_r = trace( C_bar^{-T}*H_r) [?,nSteps,numTens] 
     """
-    Computes the incompresssible generalized invariant J corresponding to the individual strucutral tensors H.
-    The kinematic constraint det(C)=1 is explicitly taken into account in the formulaiton of the invarians.
+    Computes the incompressible generalized invariant J corresponding to the individual structural tensors H.
+    The kinematic constraint det(C)=1 is explicitly taken into account in the formulation of the invariants.
     
     Parameters
     ----------
     C : tf.Tensor
         Right Cauchy-Green deformation tensor.
     H : tf.Tensor
-        Scalar weights of the generalized strucutral tensors.
+        Scalar weights of the generalized structural tensors.
     numTens : int
         Number of generalized structural tensors to use (at least 1).
         
@@ -302,14 +302,14 @@ def invariants_J_incomp(C_bar, H, numTens): # Generalized polyconvex isochoric i
 
 def invariants_J_comp(C, H, numTens): # Generalized invariants J: J_r = trace(cofactor(C)*H_r) [?,nSteps,numTens]
     """
-    Computes the compresssible generalized invariant J corresponding to the individual strucutral tensors H.
+    Computes the compressible generalized invariant J corresponding to the individual structural tensors H.
     
     Parameters
     ----------
     C : tf.Tensor
         Right Cauchy-Green deformation tensor.
     H : tf.Tensor
-        Scalar weights of the generalized strucutral tensors.
+        Scalar weights of the generalized structural tensors.
     numTens : int
         Number of generalized structural tensors to use (at least 1).
         
@@ -343,7 +343,7 @@ def invariants_J_comp(C, H, numTens): # Generalized invariants J: J_r = trace(co
 
 def ten2_L(dir): # Structural tensor L_i = l_i (x) l_i , shape = (?, nSteps, numDir, 3, 3)
     """
-    Computes the classical strucutral tensors L = l \dyadic l.
+    Computes the classical structural tensors L = l \dyadic l.
     
     Parameters
     ----------
@@ -353,7 +353,7 @@ def ten2_L(dir): # Structural tensor L_i = l_i (x) l_i , shape = (?, nSteps, num
     Returns
     -------
     L : tf.Tensor
-        Generalized strucutral tensors.
+        Generalized structural tensors.
 
     """ 
     
@@ -369,7 +369,7 @@ def ten2_L(dir): # Structural tensor L_i = l_i (x) l_i , shape = (?, nSteps, num
 
 def invariant_I3(C): # Third invariant of a tensor C: I3 = det(C) [?,nSteps,1]
     """
-    Compute third invariant (determinant) of a tensor.
+    Compute the third invariant (determinant) of a tensor.
     
     Parameters
     ----------
@@ -401,7 +401,7 @@ def ten2_C(F): # Right Cauchy-Green tensor: C = F^T * F [?,nSteps,3,3]
     Returns
     -------
     L : tf.Tensor
-        Generalized strucutral tensors.
+        Generalized structural tensors.
 
     """ 
     return tf.linalg.matmul(F,F,transpose_a=True)
@@ -450,12 +450,12 @@ def ten2_C_dot(F, F_dot): # material time derivative of the right Cauchy-Green t
     F : tf.Tensor
         deformation gradient.
     F_dot : tf.Tensor
-        material time derivative of the deformation gradient.
+        the material time derivative of the deformation gradient.
         
     Returns
     -------
     C_dot : tf.Tensor
-        Material time derivative of the right Cauchy-Green deformation tensor.
+        the material time derivative of the right Cauchy-Green deformation tensor.
 
     """ 
     C_dot = tf.linalg.matmul(F_dot,F,transpose_a=True) + tf.linalg.matmul(F,F_dot,transpose_a=True)
@@ -480,7 +480,7 @@ def ten2_F_ref(F): # Deformation gradient in reference configuration [?,nSteps,3
         Referential deformation gradient.
 
     """ 
-    # In Order for the other formulae to work we need the correct dimension required to produce enough eye matrices/tensors 
+    # For the other formulae to work we need the correct dimension required to produce enough eye matrices/tensors 
     batchSize = tf.shape(F)[0]
     nSteps = tf.shape(F)[1]
     shaper = batchSize*tf.constant([1,0,0,0]) + nSteps*tf.constant([0,1,0,0]) + tf.constant([0,0,1,1])
@@ -495,8 +495,8 @@ def ten2_F_ref(F): # Deformation gradient in reference configuration [?,nSteps,3
 
 def grad(Psi, C):
     """
-    Simply computes the gradient of Psi with respect to C; Psi should be a scalar, C a second order tensor;
-    Otherwise the elements of Psi a summed up before gradient computation
+    Compute the gradient of Psi with respect to C scaled by 2; Psi should be a scalar, C a second-order tensor;
+    Otherwise, the elements of Psi are summed up before gradient computation
 
     Parameters
     ----------
@@ -511,7 +511,8 @@ def grad(Psi, C):
 
     """    
     dPsidC = tf.gradients(Psi, C, unconnected_gradients='zero')[0]
-    return tf.math.scalar_mul(2.0, dPsidC)
+    dPsidC = tf.math.scalar_mul(2.0, dPsidC)
+    return dPsidC
 
 #
 ###
@@ -552,7 +553,7 @@ def ten2_S_incomp(S_dev, C):
 
 class ScaleLayer(tf.keras.layers.Layer):
     """
-    Scales the relaxation times to powers of 10 within the predefined range [10^[T_min}, 10{T_max}]
+    Scales the relaxation times to powers of 10 within the predefined range [10^(T_min), 10^(T_max)]
     
     """
     
@@ -628,13 +629,13 @@ class PsiSigmaLayer(tf.keras.layers.Layer):
         Parameters
         ----------
         alpha : tf.Tensor
-            factor depending on the partial derivatives of Psi evluated in the reference configuration. Either alpha or beta is zero.
+            factor depending on the partial derivatives of Psi evaluated in the reference configuration. Either alpha or beta is zero.
         beta : tf.Tensor
-            factor depending on the partial derivatives of Psi evluated in the reference configuration. Either alpha or beta is zero.
+            factor depending on the partial derivatives of Psi evaluated in the reference configuration. Either alpha or beta is zero.
         I : tf.Tensor
-            first generalized invariant of the corresponding generalized strucutral tensor.
+            first generalized invariant of the corresponding generalized structural tensor.
         J : tf.Tensor
-            secodn generalized invariant of the corresponding generalized strucutral tensor.
+            second generalized invariant of the corresponding generalized structural tensor.
 
         Returns
         -------
@@ -746,7 +747,7 @@ class stressUpdateLayer(tf.keras.layers.Layer):
     
         Q_zeros = tf.zeros([batchSize, self.nSteps, self.nMaxwell,3,3], dtype='float64')
         
-        # transpose to scan over the 0-th dimension which is should be the time steps and not the batches
+        # transpose to scan over the 0-th dimension which should be the time steps and not the batches
         Q_zeros = tf.transpose(Q_zeros, perm=[1,0,2,3,4])
         S_e     = tf.transpose(S_e,     perm=[1,0,2,3])
         tau     = tf.transpose(tau,     perm=[1,0,2])
@@ -755,7 +756,7 @@ class stressUpdateLayer(tf.keras.layers.Layer):
         
         initializer = (tf.zeros([batchSize, self.nMaxwell, 3, 3], dtype='float64'), -t[1], tf.zeros([batchSize, 3, 3], dtype='float64'), tau[0], g_i[0])
         
-        # recursively compute the stress
+        # compute the stress
         Q = tf.scan(
                 recursive_update, # fn
                 (Q_zeros, t, S_e, tau, g_i), #  elems
@@ -768,7 +769,7 @@ class stressUpdateLayer(tf.keras.layers.Layer):
         Q_sum = tf.math.reduce_sum(Q_terms, axis=2, name='sum_Q_i', keepdims=False) # accumulate the Maxwell element contributions
         
         # transpose back to (?,nSteps,3,3) such that the 0-th dimension is again the batch and not the time steps
-        S_e = tf.transpose(S_e, perm=[1,0,2,3]) # instantaneous elasic stress
+        S_e = tf.transpose(S_e, perm=[1,0,2,3]) # instantaneous elastic stress
         Q_sum = tf.transpose(Q_sum, perm=[1,0,2,3]) # viscous overstress
         
         # equilibirum relaxation coefficient
