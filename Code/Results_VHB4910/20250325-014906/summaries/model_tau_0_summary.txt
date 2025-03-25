@@ -1,0 +1,46 @@
+Model: "model_tau_0"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ Invars_in (InputLayer)         [(None, 600, 2)]     0           []                               
+                                                                                                  
+ split_IJ (Lambda)              [(None, 600, 1),     0           ['Invars_in[0][0]']              
+                                 (None, 600, 1)]                                                  
+                                                                                                  
+ prony_concat_IJ_0 (Concatenate  (None, 600, 2)      0           ['split_IJ[0][0]',               
+ )                                                                'split_IJ[0][1]']               
+                                                                                                  
+ Tau_1_1_1 (Dense)              (None, 600, 4)       12          ['prony_concat_IJ_0[0][0]']      
+                                                                                                  
+ Tau_1_2_1 (Dense)              (None, 600, 4)       12          ['prony_concat_IJ_0[0][0]']      
+                                                                                                  
+ Tau_1_3_1 (Dense)              (None, 600, 4)       12          ['prony_concat_IJ_0[0][0]']      
+                                                                                                  
+ Tau_1_4_1 (Dense)              (None, 600, 4)       12          ['prony_concat_IJ_0[0][0]']      
+                                                                                                  
+ Tau_1_5_1 (Dense)              (None, 600, 4)       12          ['prony_concat_IJ_0[0][0]']      
+                                                                                                  
+ Tau_1_1_2 (Dense)              (None, 600, 1)       5           ['Tau_1_1_1[0][0]']              
+                                                                                                  
+ Tau_1_2_2 (Dense)              (None, 600, 1)       5           ['Tau_1_2_1[0][0]']              
+                                                                                                  
+ Tau_1_3_2 (Dense)              (None, 600, 1)       5           ['Tau_1_3_1[0][0]']              
+                                                                                                  
+ Tau_1_4_2 (Dense)              (None, 600, 1)       5           ['Tau_1_4_1[0][0]']              
+                                                                                                  
+ Tau_1_5_2 (Dense)              (None, 600, 1)       5           ['Tau_1_5_1[0][0]']              
+                                                                                                  
+ concat_tau_0 (Concatenate)     (None, 600, 5)       0           ['Tau_1_1_2[0][0]',              
+                                                                  'Tau_1_2_2[0][0]',              
+                                                                  'Tau_1_3_2[0][0]',              
+                                                                  'Tau_1_4_2[0][0]',              
+                                                                  'Tau_1_5_2[0][0]']              
+                                                                                                  
+ tf.math.multiply_1 (TFOpLambda  (None, 600, 5)      0           ['concat_tau_0[0][0]']           
+ )                                                                                                
+                                                                                                  
+==================================================================================================
+Total params: 85
+Trainable params: 85
+Non-trainable params: 0
+__________________________________________________________________________________________________
