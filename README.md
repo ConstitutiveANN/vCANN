@@ -33,4 +33,4 @@ author = {Kian P. Abdolazizi and Kevin Linka and Christian J. Cyron},
 ```
 
 ## Contact
-If you have any questions, please contact kian.abdolazizi@tuhh.de
+If you have any questions, please contact kian.abdolazizi@tuhh.de.
