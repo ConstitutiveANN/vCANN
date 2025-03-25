@@ -1,8 +1,8 @@
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 
@@ -93,7 +93,7 @@ def defGrad(lam): # Deformation gradient for incompressible uniaxial tension loa
 
 def plot_struc_tensor(model, extra_struc=None, plotly=False, outputFolder=None):
     """
-    Plot the generalized strucutral tensor
+    Plot the generalized structural tensor
     
     """
 
@@ -314,7 +314,7 @@ def plot_stress(model, trainDs, valDs, outputFolder):
 
 def plot_VHB4910(model, pathToData, outputFolder):
     """
-    Plot the results of for the VHB 4910 dataset by Hossain et al. (2012), "Experimental study and numerical modelling of VHB 4910 polymer"
+    Plot the results of for the VHB 4910 dataset by Hossain et al. (2012), "Experimental study and numerical modeling of VHB 4910 polymer"
 
     Parameters
     ----------
