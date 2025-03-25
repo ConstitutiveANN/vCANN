@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 
@@ -45,7 +45,7 @@ if not os.path.exists(outputFolder):
     
 pathToData = '.\\datasets\\{:}_data\\'.format(dataset) # path to the training and validation data
 
-# if you want to load an already trained model
+# If you want to load an already-trained model
 load_model = False
 modelToLoad = '.\\Results_VHB4910\\20250325-010404'
 
@@ -67,39 +67,39 @@ T_min = -2
 T_max = 1
 
 ###########################################################################
-### Generalized strucutral tensors 
+### Generalized structural tensors 
 
-numTens = 1 # the number of generalized strucutral tensors
+numTens = 1 # the number of generalized structural tensors
 
-### there are two alternatives for determining the generalized strucutral tensors
+### there are two alternatives for determining the generalized structural tensors
 #
-# 1.) the preferred material directions and the weighting factors depend on 
+# 1.) The preferred material directions and the weighting factors depend on 
 #     some additional data embodied in the feature vector and are learned 
-#     from this feature vector. Consequently preferred material directions 
+#     from this feature vector. Consequently, preferred material directions 
 #     and weighting factors are functions of the feature vector.
 #     To use this alternative "numExtraStruc" has to be greater than zero 
 #     and obviously the feature vector has to be in the training and validation dataset
 #
-# 2.) if no data for the feature vector is available, the preferred material directions 
+# 2.) If no data for the feature vector is available, the preferred material directions 
 #     and weighting factors are simply trainable parameters optimized during training. 
 #     Using this alternative, it is assumed that the fiber directions always
 #     appear in pairs, symmetrically distributed about the y-axis of the Cartesian 
 #     coordinate system in which also the deformation gradient is defined, c.f.
 #     Figure 6 in doi:10.1098/rsif.2005.0073 for illustation. This alternative is
-#     automatically activated if "numExtraStruc" zero. Obviously, only the deformation
+#     automatically activated if "numExtraStruc" is zero. Obviously, only the deformation
 #     gradient and the time are then the only inputs and no additional features.
 
-numDir = 0  # the number of preferred material directions per generalized strucutral tensor; if zero, isotropy is assumed
-numExtraStruc = 0 # the number of extra features entering only the sub networks representing the preferred material directions and weights of the generalized strucutral tensorss
+numDir = 0  # the number of preferred material directions per generalized structural tensor; if zero, isotropy is assumed
+numExtraStruc = 0 # the number of extra features entering only the sub-networks representing the preferred material directions and weights of the generalized structural tensors
 
 ###########################################################################
 
-numExtra = 0 # the number of extra features (i.e. the dimension of the feature vector); enters only the sub networks of the strain energy function, relaxation times/coefficients
+numExtra = 0 # the number of extra features (i.e. the dimension of the feature vector); enters only the sub-networks of the strain energy function, relaxation times/coefficients
 
-uncoupled = True # if TRUE: to each generalized structural tensor corresponds a separate Generalized Maxwell model, depending only on the invariants associated with this generalized strucutral tensor. 
-                 # if FALSE: the strain energy function, relaxation times/coefficients of each Generalized Maxwell model depends on the invariants of all generalized strucutral tensors. (not thouroughly tested)
+uncoupled = True # if TRUE: to each generalized structural tensor corresponds a separate Generalized Maxwell model, depending only on the invariants associated with this generalized structural tensor. 
+                 # if FALSE: the strain energy function, relaxation times/coefficients of each Generalized Maxwell model depends on the invariants of all generalized structural tensors. (not thoroughly tested)
 
-rateDependent = False # if TRUE : relaxation times and coefficients depend on the deformation rate; if FALSE: relaxation times and coefficients depend only on deformation
+rateDependent = False # if TRUE: relaxation times and coefficients depend on the deformation rate; if FALSE: relaxation times and coefficients depend only on deformation
 
 #%%
 
@@ -128,41 +128,41 @@ acti4 = 'linear'
  
 #
 EPOCHS = 200 # number of training epochs
-earlyStopPatience = 20 # number of epochs without improvement in the validation loss after which training is abroted
+earlyStopPatience = 20 # number of epochs without improvement in the validation loss after which training is aborted
 
 
-#### Topology of the individual sub neural networks (here only a single layer was used. However, arbitrary width and depth is possible)
+#### Topology of the individual sub-neural networks (here only a single layer was used. However, arbitrary width and depth is possible)
 
-## sub networks representing the strain energy function for the elastic part
-layer_size_psi = [8,] #  number of neurons per layer; last layer of shape (1,) is automatically included in the model
+## sub-networks representing the strain energy function for the elastic part
+layer_size_psi = [8,] #  number of neurons per layer; the last layer of shape (1,) is automatically included in the model
 activations_psi = [acti3,] # activation function of each layer
 
-## sub networks representing the preferred material directions
+## sub-networks representing the preferred material directions
 layer_size_dir = [5,] # number of neurons per layer; 
 activations_dir = [acti3,] # activation function of each layer
 
-## sub networks representing the weights of the generalized strucutral tensors
+## sub-networks representing the weights of the generalized structural tensors
 layer_size_w = [5,] # number of neurons per layer; 
 activations_w = [acti3,] # activation function of each layer
   
-## sub networks representing the relaxation times
-layer_size_tau = [4,] # number of neurons per layer; last layer of shape (1,) is automatically included in the model
+## sub-networks representing the relaxation times
+layer_size_tau = [4,] # number of neurons per layer; the last layer of shape (1,) is automatically included in the model
 activations_tau = [acti3,] # activation function of each layer
 
-## sub networks representing the relaxation coefficients
-layer_size_g = [4,] # number of neurons per layer; last layer of shape (1,) is automatically included in the model
+## sub-networks representing the relaxation coefficients
+layer_size_g = [4,] # number of neurons per layer; the last layer of shape (1,) is automatically included in the model
 activations_g = [acti3,]#  # activation function of each layer
 
     
 #%% Training and validation data
 
-# here, we use tf.datasets for training and validation data
+# Here, we use tf.datasets for training and validation data
 # the data has the format data = [F, t, (extraStruc, extra)]
 # F : deformation gradients, shape=(nSamples, nSteps, 3, 3)
 # t : time, shape=(nSamples, nSteps)
 # extraStruc : features from which the preferred material directions and 
 #              weights of generalized structural tensors are learned, shape=(nSamples, nSteps, numExtra)
-# extra      : features which enter the strain energy function and 
+# extra      : features that enter the strain energy function and 
 #              relaxation timese/coefficients weights of generalized structural tensors are learned, shape=(nSamples, nSteps, numExtra)    
 
 # the number of time steps (is connected to the training and validation data and cannot be changed independently)
@@ -179,7 +179,7 @@ tf.data.experimental.save(valDs, outputFolder + '\\ds_valid_defGrad', compressio
 #%% Train the model with prescribed hyperparameters
 
 if load_model == True:
-    ### load an exisiting vCANN
+    ### load an existing vCANN
     vCANN_fit  = Outputs.loadModel(modelToLoad,'model', custom_objects)
 else:  
     ### build and train a new vCANN   
