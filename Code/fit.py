@@ -83,7 +83,7 @@ def stochastic(model, trainDs, epochs, earlyStopPatience, folder, valDs=None, Ma
 def deterministic(model, trainDs, epochs, earlyStopPatience, folder, valDs=None, method='L-BFGS-B', Maxwell_monitor=None, loss=tf.keras.losses.MeanSquaredError(), batch_size=2**10):
     
     
-    # define bounds / constraints
+    # define bounds/constraints
     bounds = utils.setBounds(model)
     constraints = utils.boundsAsConstraints(bounds)
     
