@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 import numpy as np
 import tensorflow as tf
 
 
-# this constraint is used to ensure, that combined with the sigmoidal activation
+# This constraint is used to ensure, that combined with the sigmoidal activation
 # function in the second last layer the damage function takes values between 0 and 1
 # by restricting the weights of the last layer to positive values, that sum up to one
 class NonNeg_Norm(tf.keras.constraints.Constraint):
     """
-    Constrains weight tensors to sum up to `norm_value` and to be postive.
+    Constrains weight tensors to sum up to `norm_value` and to be positive.
     
     """
 
@@ -57,7 +57,7 @@ class normalized_mean_squared_error(tf.keras.losses.Loss):
 class SparsityRegularizer(tf.keras.regularizers.Regularizer):
     """
     L1 regularizer that promotes sparsity of the Maxwell elements by indirectly penalizing
-    their reulaxation coefficients. The equilibrium relaxation coefficient is not penalized
+    their relaxation coefficients. The equilibrium relaxation coefficient is not penalized
     since the final vCANN is desired to resemble a generalized Maxwell model and not a series
     of Maxwell models.
     
@@ -69,7 +69,7 @@ class SparsityRegularizer(tf.keras.regularizers.Regularizer):
     def __call__(self, x):
         """
         Applies the L1 regularization to all relaxation coefficients but the first which
-        corresponds to the eqilibrium spring of the generalized Maxwell model.
+        corresponds to the equilibrium spring of the generalized Maxwell model.
         
         """
         p = 1.
@@ -108,7 +108,7 @@ def setBounds(model):
     Returns
     -------
     bounds : list of tuples
-        Each tuple (lb, ub) holds the lower and upper bound of the vectorized weights of model.
+        Each tuple (lb, ub) holds the lower and upper bound of the vectorized weights of the model.
         
     """
     # Determine the bounds of the parameters    
@@ -164,7 +164,7 @@ def setBounds(model):
                 
                 bounds = bounds + bias_bounds
         
-    # check of all params have bounds
+    # check if all params have bounds
     nTrainableWeights = len(np.concatenate([w.numpy().flatten() for w in model.trainable_weights]))
     print("Total number of model weights: ", nTrainableWeights)
     print("Total number bounds set      : ", len(bounds))
