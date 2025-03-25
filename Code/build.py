@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 
@@ -51,13 +51,13 @@ def build_model(nSteps,
     C_bar = tf.keras.layers.Lambda(lambda C: CM.ten2_C_bar(C), name='C_bar')(C)
     C_dot = tf.keras.layers.Lambda(lambda x: CM.ten2_C_dot(x[0],x[1]), name='C_dot' )([F,F_dot]) 
     
-    # Deformation gradient and right Cauchy-Green deformation tensorin 
+    # Deformation gradient and right Cauchy-Green deformation tensor in 
     # the reference configuration (no reference for the invariants based on C_dot necessary)
-    F_ref = tf.keras.layers.Lambda(lambda F: CM.ten2_F_ref(F), name='F_ref')(F)    # DO NOT use output_shape=(None,tf.shape(F)[1],3,3) as argument to the lambda layer. Will cause massive problems when saving / serialzing
+    F_ref = tf.keras.layers.Lambda(lambda F: CM.ten2_F_ref(F), name='F_ref')(F)    # DO NOT use output_shape=(None,tf.shape(F)[1],3,3) as argument to the lambda layer. Will cause massive problems when saving / serializing
     C_ref = tf.keras.layers.Lambda(lambda F: CM.ten2_C(F), name='C_ref')(F_ref)
     C_bar_ref = tf.keras.layers.Lambda(lambda C: CM.ten2_C_bar(C), name='C_bar_ref')(C_ref)   
     
-    ### other extra feature inputs which affect the material properties (e.g. temperature, filler content, ...)
+    ### Other extra feature inputs that affect the material properties (e.g. temperature, filler content, ...)
     if numExtra == 0:
         extra_in = []
     else:
@@ -88,11 +88,11 @@ def build_model(nSteps,
         L = tf.keras.layers.Lambda(lambda dir: CM.ten2_L(dir), name='L')(dir) # (?,nSteps,numDir,3,3)
         inputs = F
     
-    # anisotropic material; fiber directions and weights of the strucutral tensors depend on additional input
+    # anisotropic material; fiber directions and weights of the structural tensors depend on additional input
     elif numDir != 0 and numExtraStruc != 0:
         extra_struc_in = tf.keras.layers.Input(shape=(nSteps, numExtraStruc,), name='extra_struc_input') # INPUT
 
-        # Create model from direction sub ANN
+        # Create a model from direction sub-ANN
         dir_ANNs = []
         for ii in range(numDir):
             dir_ann = subANNs.dir_subANN(extra_struc_in, layer_size_dir, activations_dir, str(ii+1)) # (?,nSteps,3)
@@ -116,7 +116,7 @@ def build_model(nSteps,
     
         inputs = extra_struc_in
 
-    ### Compute the generalized structure tensors H from the standard strucutral tensors L and the weights 
+    ### Compute the generalized structure tensors H from the standard structural tensors L and the weights 
     H = tf.keras.layers.Lambda(lambda x: CM.ten2_H(x[0], x[1], x[2], x[3], x[4]), name='H')([L, w, nSteps, numDir, numTens])      
     
     ### Compute the invariants
@@ -201,7 +201,7 @@ def build_model(nSteps,
     ### stress
     S_e_ =    [CM.GradientLayer(scale=True, name='dPsidC_{:}'.format(ii))(psi, C) for ii, psi in enumerate(Psi_,1)] #  [numTens * (?, nSteps, 3, 3)]
     
-    ### apply offset for energy-free reference configuration
+    ### Apply offset for the energy-free reference configuration
     if numTens == 1: # TensorFlow requires special treatment if numTens==1, otherwise problems during prediction
         Psi_    = Psi_[0]
         Psi_ref = Psi_ref[0]
@@ -213,7 +213,7 @@ def build_model(nSteps,
         
     Psi = tf.keras.layers.Add(name='Psi')([Psi_, -Psi_ref, Psi_sigma]) # (?, nSteps, numTens)
         
-    ### apply offset for stress-free reference configuration
+    ### Apply offset for the stress-free reference configuration
     if numTens == 1:
         S_e_ = S_e_[0]
         S_sigma = S_sigma[0]        
@@ -326,10 +326,10 @@ def build_model(nSteps,
                     
             S_e_i = S_e[ii] # only the isochric part of the stress should be affected by viscous effects
             
-            ### algorithmic stress update
-            # S_i: total stress of the generalized Maxwell model corresponding to a specific generalized strucutral tensor
-            # S_infyi : equilibirum stress of the generalized Maxwell model corresponding to a specific generalized strucutral tensor
-            # Q_sum_i : viscous stress of the generalized Maxwell model corresponding to a specific generalized strucutral tensor
+            ### Algorithmic stress update
+            # S_i: total stress of the generalized Maxwell model corresponding to a specific generalized structural tensor
+            # S_infyi : equilibrium stress of the generalized Maxwell model corresponding to a specific generalized structural tensor
+            # Q_sum_i : viscous stress of the generalized Maxwell model corresponding to a specific generalized structural tensor
             S_i, S_infy_i, Q_sum_i = CM.stressUpdateLayer(nMaxwell, nSteps, name='S_{:}'.format(ii+1))(S_e_i, time, PronyParams)           
             
             # collect all stresses
