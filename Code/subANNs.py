@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 @author: Kian Abdolazizi
-Institute for Conitnuum and Material Mechanics, Hamburg University of Technology, Germany
+Institute for Continuum and Material Mechanics, Hamburg University of Technology, Germany
 
-Feel free to cantact if you have questions or want to colaborate: kian.abdolazizi@tuhh.de 
+Feel free to contact if you have questions or want to collaborate: kian.abdolazizi@tuhh.de 
 
 """
 
@@ -70,7 +70,7 @@ def Psi_subANN(Invars, layer_size, activations, suffix):
 
 def Tau_subANN(Invars, layer_size, activations, suffix):
     """
-    Feed forward neural network representing the relaxation time
+    Feed-forward neural network representing the relaxation time
     (before scaling with the time constant equally spaced on the logarithmic scale.
 
     Parameters
@@ -120,7 +120,7 @@ def Tau_subANN(Invars, layer_size, activations, suffix):
 
 def G_subANN(Invars, layer_size, activations, suffix):
     """
-    Feed forward neural network representing the relaxation coefficient
+    Feed-forward neural network representing the relaxation coefficient
     (before normalization such that the sum of all relaxation coefficients equals 1.)
 
     Parameters
@@ -200,8 +200,8 @@ def summation(w, numDir):
 
 def w_subANN(extra_struc, layer_size, activations, numDir, suffix):
     """
-    Feed forward neural network representing the weighting factors w of a
-    generalized strucutral tensor.
+    Feed-forward neural network representing the weighting factors w of a
+    generalized structural tensor.
 
     Parameters
     ----------
@@ -217,7 +217,7 @@ def w_subANN(extra_struc, layer_size, activations, numDir, suffix):
     Returns
     -------
     w : tensor, shape = (?,nSteps,numDir+1)
-        the weights of a generalized strucutral tensor.
+        the weights of a generalized structural tensor.
 
     """
     
@@ -276,7 +276,7 @@ def unitVector(dir):
 
 def dir_subANN(extra_struc, layer_size, activations, suffix):
     """
-    Feed forward neural network representing a preferred material direction.
+    Feed-forward neural network representing a preferred material direction.
 
     Parameters
     ----------
@@ -292,7 +292,7 @@ def dir_subANN(extra_struc, layer_size, activations, suffix):
     Returns
     -------
     w : tensor, shape = (?,nSteps,numDir+1)
-        the weights of the generalized strucutral tensors.
+        the weights of the generalized structural tensors.
         
     """
 
